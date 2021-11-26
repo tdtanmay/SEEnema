@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <h1>SEEnema</h1>
+  <p>Welcome to SEEnema, a webapp developed by <em>Tanmay Deshmukh</em>!</p>
+
+
+    <divc class="'container">
+    <table class="table table-dark">
+  <thead>
+    <tr>
+        <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Upvotes</th>
+      <th scope="col">Downvotes</th>
+      <th scope="col">release Date</th>
+    </tr>
+  </thead>
+  <tbody class="table_body">
+
+  </tbody>
+</table>
+    </divc>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js" integrity="sha512-aUhL2xOCrpLEuGD5f6tgHbLYEXRpYZ8G5yD+WlFrXrPy2IrWBlu6bih5C9H6qGsgqnU6mgx6KtU8TreHpASprw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        {#debugger;#}
+        alert("done");
+        fetch("apis/movies/", {
+              method: "GET",
+              headers: {
+                "X-Requested-With": "XMLHttpRequest",
+              }
+            })
+.then(response => response.json())
+.then(data => {
+  console.log(data);
+  for (var i in data.results) {
+      var name = data.results[i].name
+      var upvotes = data.results[i].upvotes
+      var downvotes = data.results[i].downvotes
+      var release_Date = data.results[i].release_date
+      var id = data.results[i].id
+
+      var item = `
+          <tr>
+      <th scope="row">${id}</th>
+      <td>${name}</td>
+      <td>${upvotes}</td>
+      <td>${downvotes}</td>
+      <td>${release_Date}</td>
+      </tr>
+          `
+      $('.table_body').append(item)
+  }
+});
+    })
+</script>
+{% endblock %}
